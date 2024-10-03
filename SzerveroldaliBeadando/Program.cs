@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SzerveroldaliBeadando.Data;
+using SzerveroldaliBeadando.Models;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SzerveroldaliBeadandoContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SzerveroldaliBeadandoContext") ?? throw new InvalidOperationException("Connection string 'SzerveroldaliBeadandoContext' not found.")));
@@ -9,6 +10,13 @@ builder.Services.AddDbContext<SzerveroldaliBeadandoContext>(options =>
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
