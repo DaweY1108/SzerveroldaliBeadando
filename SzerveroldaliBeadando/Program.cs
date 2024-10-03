@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SzerveroldaliBeadando.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<SzerveroldaliBeadandoContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SzerveroldaliBeadandoContext") ?? throw new InvalidOperationException("Connection string 'SzerveroldaliBeadandoContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
