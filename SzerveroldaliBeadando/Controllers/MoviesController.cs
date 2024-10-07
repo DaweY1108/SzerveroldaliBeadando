@@ -145,6 +145,9 @@ namespace SzerveroldaliBeadando.Controllers
         }
 
         // GET: Movies/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
